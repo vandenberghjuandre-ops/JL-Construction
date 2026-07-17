@@ -423,7 +423,7 @@ function ChatView({ trade, onBack }) {
     const newMsgs = [...messages, { role:"user", content:msg }];
     setMessages(newMsgs); setLoading(true);
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", { method:"POST", headers:{"Content-Type":"application/json", "x-api-key": "sk-ant-api03-xLjPAjgKoFASKiOw12Ke1MGB-OPXZbsWyqECVFu2b4jvxQpDzX2rlcJp5vwkZQYXiV5vRbKT8P9Zb3G_kzIWTg-CYOLTgAA", "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true"}, body:JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1000, system:trade.systemPrompt, messages:newMsgs.map(m=>({role:m.role,content:m.content})) }) });
+      const res = await fetch("https://api.anthropic.com/v1/messages", { method:"POST", headers:{"Content-Type":"application/json","x-api-key": "sk-ant-api03-xLjPAjgKoFASKiOw12Ke1MGB-OPXZbsWyqECVFu2b4jvxQpDzX2rlcJp5vwkZQYXiV5vRbKT8P9Zb3G_kzIWTg-CYOLTgAA", "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" }, body:JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1000, system:trade.systemPrompt, messages:newMsgs.map(m=>({role:m.role,content:m.content})) }) });
       const data = await res.json();
       const reply = data.content?.map(b=>b.text||"").join("")||"Sorry, I couldn't get a response.";
       setMessages([...newMsgs, { role:"assistant", content:reply }]);
